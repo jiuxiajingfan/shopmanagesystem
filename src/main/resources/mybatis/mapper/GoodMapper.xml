@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.shopsystem.mapper.GoodMapper">
+    <cache
+        eviction="FIFO"
+        flushInterval="60000"
+        size="512"
+        readOnly="true"/>
+    <insert id="insertGood" parameterType="Good">
+        insert into shopsystem.tb_goods(gid,name,suid,in_price,out_price,profit,number,gmt_create,gmt_make,gmt_overdue)
+        values(gid=#{gid},name=#{name},suid=#{suid},in_price=#{in_price},out_price=#{out_price},profit=#{profit},number=#{number},gmt_create=#{gmt_create},gmt_make=#{gmt_make},gmt_overdue=#{gmt_overdue});
+    </insert>
+
+    <update id="updateGood" parameterType="Good">
+        update shopsystem.tb_goods
+        set gid=#{gid},name=#{name},suid=#{suid},in_price=#{in_price},out_price=#{out_price},profit=#{profit},number=#{number},gmt_create=#{gmt_create},gmt_make=#{gmt_make},gmt_overdue=#{gmt_overdue}
+        where id=#{id};
+    </update>
+
+    <delete id="deleteGood" parameterType="Long">
+        delete from shopsystem.tb_goods
+        where id=#{id};
+    </delete>
+
+    <select id="selectGoodByID" resultType="Good" useCache="true">
+        select * from shopsystem.tb_goods
+        where gid=#{gid} and suid=#{sid}
+    </select>
+
+    <select id="listSelectGoodByName" resultType="Good" useCache="true">
+        select * from shopsystem.tb_goods
+        where suid=#{sid} and name like concat('%',#{name},'%');
+    </select>
+</mapper>

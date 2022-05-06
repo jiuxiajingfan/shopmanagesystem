@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.shopsystem.mapper.ShopMapper">
+    <cache
+            eviction="FIFO"
+            flushInterval="60000"
+            size="512"
+            readOnly="true"/>
+    <insert id="insertShop" parameterType="Shop">
+        insert into shopsystem.tb_shop(name,introduce)
+        values (name=#{name},introduce=#{introduce});
+    </insert>
+
+    <update id="updateShop" parameterType="Shop">
+        update shopsystem.tb_shop
+        set name=#{name},introduce=#{introduce}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from shopsystem.tb_shop where id={#id};
+    </delete>
+</mapper>

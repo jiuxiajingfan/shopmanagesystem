@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.li.shopsystem.mapper.UserMapper">
+    <insert id="insertUser" parameterType="User">
+        insert into shopsystem.tb_user(username,password,email,gmt_create,gmt_modified)
+        values (#{username},#{password},#{email},#{gmt_create},#{gmt_modified});
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update shopsystem.tb_user
+        set username=#{username},password=#{password},email=#{email},gmt_modified=#{gmt_modified}
+        where uid=#{uid};
+    </update>
+
+    <delete id="deleteUser" parameterType="Long">
+        delete from shopsystem.tb_user where uid=#{uid}
+    </delete>
+
+    <select id="listSelectShopByUID" resultType="Shop" useCache="true">
+        select * from shopsystem.tb_shop where id in (select suid from shopsystem.tb_role where uid=#{uid});
+    </select>
+
+    <select id="userLogin" resultType="User" useCache="true">
+        select * from shopsystem.tb_user where
+        username=#{userName} and password=#{userPWD};
+    </select>
+</mapper>
