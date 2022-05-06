@@ -82,3 +82,11 @@ logging:
         shopsystem:
           mapper: DEBUG
 
+
+#jwt sign
+jwt.secret: qwer
+#jwt 过期时间
+jwt.time: 604800
+#jwt header
+jwt.header: Userjwt
+

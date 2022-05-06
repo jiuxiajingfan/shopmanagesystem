@@ -67,9 +67,13 @@
                 <tr th:each="shop:${shops}">
                     <td th:text="${shop.getId}"></td>
                     <td th:text="${shop.getName}"></td>
+                    <th:td><th:a href="${pageContext.request.contextPath}/admin/update?id=${book.articleID}">进入收银</th:a>
+                        &nbsp; | &nbsp;
+                        <th:a href="${pageContext.request.contextPath}/admin/delete?id=${book.articleID}">修改店铺信息</th:a> </th:td>
                 </tr>
             </tbody>
         </table>
+       <a>还没有店铺？点击申请</a>
 
     </div>
 
