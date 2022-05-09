@@ -13,10 +13,6 @@ class ShopsystemApplicationTests {
 
     @Test
     void contextLoads() {
-        Jwtutils jwtutils = new Jwtutils();
-        String jwtToken = jwtutils.getJwtToken("admin", "superadmin");
-        System.out.println(jwtToken);
-        jwtutils.parse(jwtToken);
 
 
     }

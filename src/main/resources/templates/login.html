@@ -105,7 +105,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "user/tologin",
+                url: "tologin",
                 data:{
                     userName: $('#userName').val(),
                     passWord: $('#loginPWD5').val()
@@ -117,7 +117,7 @@
                             type: 'success', // 定义颜色主题
                             time: 1000
                         }).show();
-                        $(location).attr('href','/home');
+                        $(location).attr('href','user/home');
                     }
                     else if(data===0)
                     {
@@ -178,7 +178,7 @@
             if($('#signPWD2').val()===$('#signPWD').val()) {
                 $.ajax({
                     type: "POST",
-                    url: "user/tosignup",
+                    url: "tosignup",
                     data: {
                         userName: $('#signUser').val(),
                         passWord: $('#signPWD5').val(),
@@ -217,7 +217,7 @@
             if($('#email').val()) {
                 $.ajax({
                     type: "POST",
-                    url: "user/getCode",
+                    url: "getCode",
                     data: {
                         userName: $('#signUser').val(),
                         email: $('#email').val()
