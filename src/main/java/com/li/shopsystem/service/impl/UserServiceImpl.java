@@ -6,8 +6,6 @@ import com.li.shopsystem.pojo.User;
 import com.li.shopsystem.service.UserService;
 import com.li.shopsystem.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpCookie;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import com.li.shopsystem.utils.Code;
 import org.springframework.ui.Model;
@@ -15,6 +13,7 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * @author Li
@@ -138,7 +137,6 @@ public class UserServiceImpl implements UserService {
     public User userLogin(String userName, String userPWD) {
         return userMapper.userLogin(userName,userPWD);
     }
-
 
 
 }

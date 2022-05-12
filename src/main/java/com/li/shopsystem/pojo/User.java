@@ -1,5 +1,7 @@
 package com.li.shopsystem.pojo;
 
+
+import java.util.Collection;
 import java.util.Date;
 
 
@@ -7,7 +9,7 @@ import java.util.Date;
  * @author Li
  * 用户实体类
  */
-public class User {
+public class User  {
     private Long uid;
     private String username;
     private String password;
@@ -34,6 +36,7 @@ public class User {
     public void setUid(Long uid) {
         this.uid = uid;
     }
+
 
     public String getUsername() {
         return username;

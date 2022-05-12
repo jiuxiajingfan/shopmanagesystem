@@ -2,7 +2,7 @@ package com.li.shopsystem.service;
 
 import com.li.shopsystem.pojo.Shop;
 import com.li.shopsystem.pojo.User;
-import org.springframework.cache.annotation.Cacheable;
+
 
 import java.util.List;
 
@@ -48,4 +48,5 @@ public interface UserService {
      * @return  用户实体类
      */
     User userLogin(String userName, String userPWD);
+
 }
