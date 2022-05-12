@@ -24,7 +24,7 @@
 
     <select id="userLogin" resultType="User" useCache="true">
         select * from shopsystem.tb_user where
-        username=#{userName} and password=#{userPWD};
+        username=#{userName};
     </select>
 
     <select id="userSelectbyName" resultType="User" useCache="true">

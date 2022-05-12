@@ -5,6 +5,10 @@ import com.li.shopsystem.pojo.Shop;
 import com.li.shopsystem.pojo.User;
 import com.li.shopsystem.service.UserService;
 import com.li.shopsystem.utils.RedisUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.li.shopsystem.utils.Code;
@@ -42,16 +46,18 @@ public class UserServiceImpl implements UserService {
     public int userToLogin(String userName, String passWord, HttpSession session){
         if(userName!=null&&passWord!=null){
             if(!userName.equals(" ") && !passWord.equals(" ")){
-                User user = userLogin(userName, passWord);
-                if(user!=null){
-                    session.setAttribute("UserID",user.getUid());
-                    session.setAttribute("User",user.getUsername());
+                //获取当前用户
+                Subject subject = SecurityUtils.getSubject();
+                //封装用户的登录数据
+                UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userName, passWord);
+                try{
+                    subject.login(usernamePasswordToken);
                     return 1;
-                }
-                else{
+                }catch (Exception e){
                     return 0;
                 }
             }
+
         }
         return -1;
     }
@@ -134,8 +140,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User userLogin(String userName, String userPWD) {
-        return userMapper.userLogin(userName,userPWD);
+    public User userLogin(String userName) {
+        return userMapper.userLogin(userName);
     }
 
 

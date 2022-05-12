@@ -48,10 +48,9 @@ public interface UserMapper {
     /**
      * 用户登录类
      * @param userName 账户名
-     * @param userPWD  密码
      * @return  用户实体类
      */
-    User userLogin(@PathVariable("userName") String userName,@PathVariable("userPWD") String userPWD);
+    User userLogin(@PathVariable("userName") String userName);
 
 
 }
