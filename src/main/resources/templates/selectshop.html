@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro" >
 <head>
     <meta charset="utf-8">
@@ -68,9 +69,7 @@
                 <tr th:each="shop:${shops}">
                     <td th:text="${shop.getId}"></td>
                     <td th:text="${shop.getName}"></td>
-                    <th:td><th:a href="${pageContext.request.contextPath}/admin/update?id=${book.articleID}">进入收银</th:a>
-                        &nbsp; | &nbsp;
-                        <th:a href="${pageContext.request.contextPath}/admin/delete?id=${book.articleID}">修改店铺信息</th:a> </th:td>
+                    <td><a th:href="@{'/user/myshop/'+${shop.getId}}">进入</a></td>
                 </tr>
             </tbody>
         </table>
@@ -80,8 +79,6 @@
 
 </div>
 
-
-</>
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/layui.min.js}"></script>
 <script>
     //JS

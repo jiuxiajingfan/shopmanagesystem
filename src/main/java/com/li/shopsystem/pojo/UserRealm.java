@@ -27,12 +27,12 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("souquan=====>>>>.");
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipals();
-
-        //设置用户权限
-        info.addStringPermission(" ");
+//        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+////        Subject subject = SecurityUtils.getSubject();
+////        User user = (User) subject.getPrincipals();
+////
+////        //设置用户权限
+////        info.addStringPermission(" ");
 
 
 

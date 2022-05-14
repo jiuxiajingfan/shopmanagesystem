@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
      * @param passWord  密码
      * @return 执行结果 1为成功，0为失败 -1为报错
      */
-    public int userToLogin(String userName, String passWord, HttpSession session){
+    public int userToLogin(String userName, String passWord){
         if(userName!=null&&passWord!=null){
             if(!userName.equals(" ") && !passWord.equals(" ")){
                 //获取当前用户
@@ -111,6 +111,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    /**
+     * 返回用户名下的店铺
+     * @param session
+     * @param model
+     */
     public void selectShopByUID(HttpSession session, Model model){
         Long uid = (Long)session.getAttribute("UserID");
         System.out.println(uid);
@@ -118,6 +123,18 @@ public class UserServiceImpl implements UserService {
         model.addAttribute("shopss",ss);
         System.out.println(ss);
     }
+
+    /**
+     * 用户店铺页面展示店铺
+     * @param model
+     */
+    public void selectShop(Model model){
+        Subject subject = SecurityUtils.getSubject();
+        User principals = (User) subject.getPrincipal();
+        List<Shop> shops = this.listSelectShopByUID(principals.getUid());
+        model.addAttribute("shops",shops);
+    }
+
 
     @Override
     public int insertUser(User user) {

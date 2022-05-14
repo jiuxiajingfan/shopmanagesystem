@@ -1,12 +1,5 @@
-<%--
-Created by IntelliJ IDEA.
-User: Li
-Date: 2022/3/23
-Time: 22:58
-To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>404</title>
@@ -16,7 +9,7 @@ To change this template use File | Settings | File Templates.
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" th:href="@{/css/layui.css}" media="all">
     <style>
         .error .clip .shadow {height:180px;}
         .error .clip:nth-of-type(2) .shadow {width:130px;}
@@ -90,7 +83,7 @@ To change this template use File | Settings | File Templates.
         </div>
     </div>
 </div>
-<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script th:src="@{/js/layui.js}" charset="utf-8"></script>
 <script>
     function randomNum() {
         return Math.floor(Math.random() * 9) + 1;
@@ -125,7 +118,5 @@ To change this template use File | Settings | File Templates.
         }
     }, time);
 </script>
-<body>
-
 </body>
 </html>

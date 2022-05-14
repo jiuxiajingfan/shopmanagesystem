@@ -34,7 +34,7 @@ public class BaseController {
     @RequestMapping("/tologin")
     @ResponseBody
     public int toLogin(String userName, String passWord, HttpSession session){
-        return userService.userToLogin(userName,passWord,session);
+        return userService.userToLogin(userName,passWord);
     }
 
     @RequestMapping("/tosignup")
@@ -42,5 +42,13 @@ public class BaseController {
     public int toSignUp(String userName,String passWord,String email,String code){
         return userService.toSignUp(userName,passWord,email,code);
     }
+
+
+    @RequestMapping({"/401"})
+    public String error401(){
+        return "error/401";
+    }
+
+
 
 }
