@@ -45,8 +45,12 @@ public class UserController {
 
     @RequestMapping("/myshop/{id}")
     public String myshop(@PathVariable("id") Long id){
-
         return "myshop";
+    }
+
+    @RequestMapping("/myshop/{id}/goods")
+    public String goods(@PathVariable("id") Long id){
+        return  "goods";
     }
 
 
