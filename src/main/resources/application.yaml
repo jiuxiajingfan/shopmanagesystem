@@ -83,10 +83,8 @@ logging:
           mapper: DEBUG
 
 
-#jwt sign
-jwt.secret: qwer
-#jwt 过期时间
-jwt.time: 604800
-#jwt header
-jwt.header: Userjwt
+
+#session 过期时间
+sessiontime: 604800
+
 

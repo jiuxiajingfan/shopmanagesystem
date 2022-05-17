@@ -26,11 +26,19 @@
 
     <select id="selectGoodByID" resultType="Good" useCache="true">
         select * from shopsystem.tb_goods
-        where gid=#{gid} and suid=#{sid}
+        where gid=#{gid} and suid=#{sid};
     </select>
 
     <select id="listSelectGoodByName" resultType="Good" useCache="true">
         select * from shopsystem.tb_goods
         where suid=#{sid} and name like concat('%',#{name},'%');
     </select>
+
+    <select id="listSelecAllGoods" resultType="Good" useCache="true">
+        select * from shopsystem.tb_goods
+        where suid=#{sid}
+        order by id
+        limit #{page},#{limit};
+    </select>
+
 </mapper>

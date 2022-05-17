@@ -51,4 +51,13 @@ public interface GoodMapper {
      * @return List<Good> 商品模糊查询结果集
      */
     List<Good> listSelectGoodByName(String name,@Param("sid") Long sid);
+
+    /**
+     * 分页查询店铺id位sid的商品
+     * @param sid 店铺id
+     * @param page 第几页
+     * @param limit 每页数据
+     * @return
+     */
+    List<Good> listSelecAllGoods(Long sid,int page,int limit);
 }

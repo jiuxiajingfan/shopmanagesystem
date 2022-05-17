@@ -1,7 +1,11 @@
 package com.li.shopsystem.controller;
 
 
+import com.li.shopsystem.pojo.Good;
+import com.li.shopsystem.pojo.GoodsMessage;
 import com.li.shopsystem.pojo.Shop;
+import com.li.shopsystem.service.GoodService;
+import com.li.shopsystem.service.impl.GoodServiceImpl;
 import com.li.shopsystem.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +33,9 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private GoodServiceImpl goodService;
+
 
 
     @RequestMapping("/selectshop")
@@ -53,6 +60,12 @@ public class UserController {
         return  "goods";
     }
 
-
+    @ResponseBody
+    @RequestMapping("/myshop/{id}/goods/allgoods")
+    public GoodsMessage allGoods(@PathVariable("id") Long id, int page, int limit){
+        System.out.println(page);
+        System.out.println(limit);
+        return goodService.selectAllGoods(id,page,limit);
+    }
 
 }

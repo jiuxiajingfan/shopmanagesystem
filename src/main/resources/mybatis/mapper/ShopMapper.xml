@@ -22,4 +22,6 @@
     <delete id="delete" parameterType="Long">
         delete from shopsystem.tb_shop where id={#id};
     </delete>
+
+
 </mapper>

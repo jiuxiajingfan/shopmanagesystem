@@ -10,6 +10,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.li.shopsystem.utils.Code;
 import org.springframework.ui.Model;
@@ -24,6 +25,12 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    /**
+     *  Session过期时间
+     */
+    @Value("${sessiontime}")
+    private int timeout;
 
     @Autowired
     private UserMapper userMapper;
@@ -48,6 +55,8 @@ public class UserServiceImpl implements UserService {
             if(!userName.equals(" ") && !passWord.equals(" ")){
                 //获取当前用户
                 Subject subject = SecurityUtils.getSubject();
+                //设置用户session过期时间
+                subject.getSession().setTimeout(timeout);
                 //封装用户的登录数据
                 UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userName, passWord);
                 try{
