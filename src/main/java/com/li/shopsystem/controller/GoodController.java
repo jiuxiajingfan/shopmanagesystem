@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @Controller
 @RestController
-@RequestMapping("Good")
+@RequestMapping("good")
 public class GoodController {
     @Autowired
     private GoodServiceImpl goodService;
@@ -29,4 +30,24 @@ public class GoodController {
         List<Good> goods = goodService.listSelectGoodByName(name, sid);
         return goods;
     }
+
+    @RequestMapping("/update/{id}/{sid}")
+    public int update(@PathVariable("id") Long id, @PathVariable("sid") Long sid, String goodID, String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number){
+//        System.out.println(id);
+//        System.out.println(sid);
+//        System.out.println(goodName);
+//        System.out.println(in_price);
+//        System.out.println(out_price);
+//        System.out.println(gmt_make);
+//        System.out.println(gmt_overdue);
+//        System.out.println(number);
+        return  goodService.toUpdateGood(id,sid,goodID,goodName,in_price,out_price,gmt_make,gmt_overdue,number);
+    }
+
+    @RequestMapping("/delete/{sid}")
+    public int delete(@PathVariable("sid")Long id){
+        return goodService.deleteGood(id);
+    }
+
+
 }

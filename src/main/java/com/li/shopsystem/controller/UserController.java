@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -68,10 +69,11 @@ public class UserController {
     }
 
     @RequestMapping("/myshop/{id}/goods/updategood/{gid}")
-    public String updateGood(@PathVariable("id") Long id,@PathVariable("gid") Long gid, Model model){
+    public String updateGood(@PathVariable("id") Long id, @PathVariable("gid") Long gid, Model model){
         int i = goodService.updataGoodPage(id, gid, model);
         System.out.println(id);
         return "updateGood";
     }
+
 
 }

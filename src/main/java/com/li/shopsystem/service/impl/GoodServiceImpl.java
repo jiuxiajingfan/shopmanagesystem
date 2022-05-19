@@ -8,7 +8,11 @@ import com.li.shopsystem.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,6 +54,31 @@ public class GoodServiceImpl implements GoodService {
         return 1;
     }
 
+    public int toUpdateGood(Long id, Long sid, String gid, String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number){
+        Good good = new Good();
+        good.setId(id);
+        good.setGid(gid);
+        good.setIn_price(in_price);
+        good.setOut_price(out_price);
+        good.setProfit(out_price-in_price);
+        good.setNumber(number);
+        good.setName(goodName);
+        good.setGmt_create(new Date(System.currentTimeMillis()));
+        Date date = null;
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = formatter.parse(gmt_make);
+            good.setGmt_make(date);
+            date = formatter.parse(gmt_overdue);
+            good.setGmt_overdue(date);
+            System.out.println(good);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        int result = this.updateGood(good);
+        return result;
+    }
     @Override
     public int insertGood(Good good) {
         return goodMapper.insertGood(good);

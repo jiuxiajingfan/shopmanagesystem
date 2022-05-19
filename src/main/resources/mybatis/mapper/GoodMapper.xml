@@ -15,7 +15,7 @@
 
     <update id="updateGood" parameterType="Good">
         update shopsystem.tb_goods
-        set gid=#{gid},name=#{name},suid=#{suid},in_price=#{in_price},out_price=#{out_price},profit=#{profit},number=#{number},gmt_create=#{gmt_create},gmt_make=#{gmt_make},gmt_overdue=#{gmt_overdue}
+        set gid=#{gid},name=#{name},in_price=#{in_price},out_price=#{out_price},profit=#{profit},number=#{number},gmt_create=#{gmt_create},gmt_make=#{gmt_make},gmt_overdue=#{gmt_overdue}
         where id=#{id};
     </update>
 

@@ -7,80 +7,127 @@
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.min.css}">
 </head>
 <body>
-<div class="layui-form-item">
+<div class="layui-form-item" >
     <div class="layui-container">
-        <br>
-        <br>
+        <br><br><br><br><br><br>
         <div class="layui-row">
             <div class="layui-col-md6">
                 <label class="layui-form-label">商品条码</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="goodID" lay-verify="required" placeholder="请输入条码" autocomplete="off" class="layui-input" th:value="${good.gid}">
+                    <input type="text" id="goodID" lay-verify="required" placeholder="请输入条码" autocomplete="off"
+                           class="layui-input" th:value="${good.gid}">
                 </div>
             </div>
             <div class="layui-col-md6">
                 <label class="layui-form-label">商品名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="goodName" lay-verify="required" placeholder="请输入商品名" autocomplete="off" class="layui-input" th:value="${good.name}">
+                    <input type="text" id="goodName" lay-verify="required" placeholder="请输入商品名" autocomplete="off"
+                           class="layui-input" th:value="${good.name}">
                 </div>
             </div>
         </div>
-        <br>
-        <br>
+        <br><br>
         <div class="layui-row">
             <div class="layui-col-md6">
                 <label class="layui-form-label">进价</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="in_price" lay-verify="required" placeholder="请输入进价" autocomplete="off" class="layui-input" th:value="${good.in_price}">
+                    <input type="text" id="in_price" lay-verify="required" placeholder="请输入进价" autocomplete="off"
+                           class="layui-input" th:value="${good.in_price}">
                 </div>
             </div>
             <div class="layui-col-md6">
                 <label class="layui-form-label">售价</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="out_price" lay-verify="required" placeholder="请输入售价" autocomplete="off" class="layui-input" th:value="${good.out_price}">
+                    <input type="text" id="out_price" lay-verify="required" placeholder="请输入售价" autocomplete="off"
+                           class="layui-input" th:value="${good.out_price}">
                 </div>
             </div>
         </div>
-        <br>
-        <br>
+        <br><br>
         <div class="layui-row">
-            <div class="layui-col-md1">
-                <div class="layui-inline">
+            <div class="layui-col-md6">
+                <div>
                     <label class="layui-form-label">生产日期</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input" id="gmt_make" placeholder="yyyy-MM-dd" th:value="${#strings.substring(good.gmt_make,0,10)}">
+                        <input type="text" class="layui-input" id="gmt_make" placeholder="yyyy-MM-dd"
+                               th:value="${#strings.substring(good.gmt_make,0,10)}">
                     </div>
                 </div>
             </div>
-            <div class="layui-col-md1">
-                <div class="layui-inline">
+            <div class="layui-col-md6">
+                <div>
                     <label class="layui-form-label">保质期至</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input" id="gmt_overdue" placeholder="yyyy-MM-dd" th:value="${#strings.substring(good.gmt_overdue,0,10)}">
+                        <input type="text" class="layui-input" id="gmt_overdue" placeholder="yyyy-MM-dd"
+                               th:value="${#strings.substring(good.gmt_overdue,0,10)}">
                     </div>
                 </div>
             </div>
-
-
         </div>
-
+        <br><br>
         <div class="layui-row">
-            <div class="layui-col-md1  layui-col-md-offset4" >
-                <button id="saveBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
-                    <i class="layui-icon layui-icon-ok-circle layui-font-12"></i>保存
-                </button>
-            </div>
-            <div class="layui-col-md1 layui-col-md-offset7" >
-                <button id="backBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
-                    <i class="layui-icon layui-icon-search layui-font-12"></i>返回
-                </button>
+            <div class="layui-col-md6">
+                <label class="layui-form-label">数量</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="number" lay-verify="required" placeholder="请输入商品数量" autocomplete="off"
+                           class="layui-input" th:value="${good.number}">
+                </div>
             </div>
         </div>
+        <br><br><br><br>
+        <div class="div1">
+            <button id="saveBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
+                <i class="layui-icon layui-icon-ok-circle layui-font-12"></i>保存
+            </button>
+            <button id="backBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="closeBnt()">
+                <i class="layui-icon layui-icon-search layui-font-12"></i>返回
+            </button>
+        </div>
+
     </div>
 </div>
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/layui.min.js}"></script>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/notify.js}"></script>
 <script>
-    layui.use('laydate', function() {
+    var notify=layui.notify;
+    var index = parent.layer.getFrameIndex(window.name);
+    $('#saveBnt').click(function () {
+        const shopid = [[ ${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]} ]];
+        const goodid = [[ ${#strings.listSplit(#httpServletRequest.requestURI,'/')[5]} ]];
+        $.ajax({
+            type: "POST",
+            url: '/good/update/'+shopid+"/"+goodid,
+            data: {
+                goodID: $('#goodID').val(),
+                goodName: $('#goodName').val(),
+                in_price: $('#in_price').val(),
+                out_price: $('#out_price').val(),
+                gmt_make: $('#gmt_make').val(),
+                gmt_overdue: $('#gmt_overdue').val(),
+                number: $('#number').val()
+            },
+            success: function (data) {
+              if(data === 1){
+                  parent.layer.close(index);
+                  layui.use(['notify'],function(){
+                      top.notify.success("修改成功",'topCenter',2000,true)
+                  });
+              }
+              else{
+                  layui.use(['notify'],function(){
+                      top.notify.error("修改失败",'topCenter',2000,true)
+                  });
+              }
+                parent.layer.close(index);
+            }
+        });
+    });
+
+    function closeBnt(){
+       parent.layer.close(index);
+    };
+    layui.use('laydate', function () {
         var laydate = layui.laydate;
         laydate.render({
             elem: '#gmt_make'
@@ -90,6 +137,16 @@
         });
     });
 </script>
+<style>
+    .div1 {
+        display: flex;
+        justify-content: center;
+
+    }
+
+</style>
+
 
 </body>
+
 </html>
