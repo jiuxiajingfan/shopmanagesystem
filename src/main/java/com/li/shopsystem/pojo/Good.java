@@ -1,5 +1,8 @@
 package com.li.shopsystem.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -15,8 +18,17 @@ public class Good {
     private int out_price;
     private int profit;
     private Long number;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date gmt_create;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date gmt_make;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date gmt_overdue;
 
     public Good() {

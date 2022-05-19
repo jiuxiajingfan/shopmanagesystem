@@ -1,11 +1,13 @@
 package com.li.shopsystem.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.li.shopsystem.mapper.GoodMapper;
 import com.li.shopsystem.pojo.Good;
 import com.li.shopsystem.pojo.GoodsMessage;
 import com.li.shopsystem.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,11 +31,23 @@ public class GoodServiceImpl implements GoodService {
             msg.setData(null);
         }else{
             msg.setCode(0);
-            msg.setCount(goods.size());
+            msg.setCount(this.numberGoods(sid));
             msg.setMsg("查询成功");
             msg.setData(goods);
         }
         return msg;
+    }
+
+    public int updataGoodPage(Long id, Long gid, Model model){
+        Good good = this.selectGoodByGid(id, gid);
+
+        if(Objects.isNull(good)){
+            return -1;
+        }else{
+            Object o = JSON.toJSON(good);
+            model.addAttribute("good",o);
+        }
+        return 1;
     }
 
     @Override
@@ -67,6 +81,15 @@ public class GoodServiceImpl implements GoodService {
         return goodMapper.listSelecAllGoods(sid,page,limit);
     }
 
+    @Override
+    public int numberGoods(Long sid) {
+        return goodMapper.numberGoods(sid);
+    }
+
+    @Override
+    public Good selectGoodByGid(Long id, Long gid) {
+        return goodMapper.selectGoodByGid(id,gid);
+    }
 
 
 }

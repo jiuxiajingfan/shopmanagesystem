@@ -56,4 +56,19 @@ public interface GoodService {
      * @return
      */
     List<Good> listSelecAllGoods(Long sid,int page,int limit);
+
+    /**
+     * 获取某个店铺的商品总数量
+     * @param sid 店铺ID
+     * @return
+     */
+    int numberGoods(Long sid);
+
+    /**
+     * 根据商品ID和店铺ID搜索商品
+     * @param id
+     * @param gid
+     * @return
+     */
+    Good selectGoodByGid(Long id,Long gid);
 }

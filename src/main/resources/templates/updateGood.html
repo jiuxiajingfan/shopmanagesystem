@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.min.css}">
+</head>
+<body>
+<div class="layui-form-item">
+    <div class="layui-container">
+        <br>
+        <br>
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <label class="layui-form-label">商品条码</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="goodID" lay-verify="required" placeholder="请输入条码" autocomplete="off" class="layui-input" th:value="${good.gid}">
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <label class="layui-form-label">商品名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="goodName" lay-verify="required" placeholder="请输入商品名" autocomplete="off" class="layui-input" th:value="${good.name}">
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <label class="layui-form-label">进价</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="in_price" lay-verify="required" placeholder="请输入进价" autocomplete="off" class="layui-input" th:value="${good.in_price}">
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <label class="layui-form-label">售价</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="out_price" lay-verify="required" placeholder="请输入售价" autocomplete="off" class="layui-input" th:value="${good.out_price}">
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="layui-row">
+            <div class="layui-col-md1">
+                <div class="layui-inline">
+                    <label class="layui-form-label">生产日期</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="gmt_make" placeholder="yyyy-MM-dd" th:value="${#strings.substring(good.gmt_make,0,10)}">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <div class="layui-inline">
+                    <label class="layui-form-label">保质期至</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="gmt_overdue" placeholder="yyyy-MM-dd" th:value="${#strings.substring(good.gmt_overdue,0,10)}">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md1  layui-col-md-offset4" >
+                <button id="saveBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
+                    <i class="layui-icon layui-icon-ok-circle layui-font-12"></i>保存
+                </button>
+            </div>
+            <div class="layui-col-md1 layui-col-md-offset7" >
+                <button id="backBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
+                    <i class="layui-icon layui-icon-search layui-font-12"></i>返回
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/layui.min.js}"></script>
+<script>
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#gmt_make'
+        });
+        laydate.render({
+            elem: '#gmt_overdue'
+        });
+    });
+</script>
+
+</body>
+</html>

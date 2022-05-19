@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * 前端查询商品返回的消息类
  * @ClassName GoodsMessage
  * @Author ：Li
  * @Date ：2022/5/17 21:21

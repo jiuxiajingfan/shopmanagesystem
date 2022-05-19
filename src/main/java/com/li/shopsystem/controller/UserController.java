@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import reactor.core.publisher.Mono;
 
 import javax.security.auth.Subject;
 import javax.servlet.http.HttpSession;
@@ -63,9 +64,14 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/myshop/{id}/goods/allgoods")
     public GoodsMessage allGoods(@PathVariable("id") Long id, int page, int limit){
-        System.out.println(page);
-        System.out.println(limit);
         return goodService.selectAllGoods(id,page,limit);
+    }
+
+    @RequestMapping("/myshop/{id}/goods/updategood/{gid}")
+    public String updateGood(@PathVariable("id") Long id,@PathVariable("gid") Long gid, Model model){
+        int i = goodService.updataGoodPage(id, gid, model);
+        System.out.println(id);
+        return "updateGood";
     }
 
 }

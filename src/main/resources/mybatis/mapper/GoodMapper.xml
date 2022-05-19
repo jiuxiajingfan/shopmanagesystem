@@ -41,4 +41,13 @@
         limit #{page},#{limit};
     </select>
 
+    <select id="numberGoods" resultType="_int" useCache="true">
+        select count(1) from shopsystem.tb_goods
+        where suid=#{sid};
+    </select>
+
+    <select id="selectGoodByGid" resultType="Good" useCache="true">
+        select * from shopsystem.tb_goods
+        where id = #{gid} and suid=#{id};
+    </select>
 </mapper>

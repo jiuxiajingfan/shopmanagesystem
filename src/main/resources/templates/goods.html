@@ -72,7 +72,7 @@
                         <i class="layui-icon layui-icon-search layui-font-12"></i>搜索
                     </button>
                     <button id="add" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
-                        <i class="layui-icon layui-icon-add-1 layui-font-12"></i>添加
+                        <i class="layui-icon layui-icon-return layui-font-12"></i>添加
                     </button>
                 </div>
             </div>
@@ -93,10 +93,10 @@
     var shopid = [[ ${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]} ]]
     layui.use('table', function(){
         var table = layui.table;
-
+        console.log(shopid);
         table.render({
             elem: '#test'
-            ,url: 'http://localhost:8080/user/myshop/'+shopid+'/goods/allgoods'
+            ,url: '/user/myshop/'+shopid+'/goods/allgoods'
             ,method: 'post'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print' //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
@@ -104,11 +104,11 @@
             ,title: '商品数据表'
             ,cols: [
                 [    {type: 'checkbox', fixed: 'left'}
-                    ,{field:'id', title: 'ID', sort: true}
+                    ,{field:'id', title: 'ID', sort: true,hide: true}
                     ,{field:'name',  title: '商品名'}
                     ,{field:'gid',  title: '商品码'}
                     ,{field:'in_price',width:80, title: '进货价'}
-                    ,{field:'sout_price',width:80, title: '售价', width: 80}
+                    ,{field:'out_price',width:80, title: '售价', width: 80}
                     ,{field:'number',width:80, title: '数量'}
                     ,{field:'gmt_make',width:300,  title: '更新日期'}
                     ,{field:'gmt_overdue', width:300, title: '过期时间'}
@@ -123,21 +123,23 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            //console.log(obj)
+            // console.log(data.id);
+            // console.log(data.gmt_overdue);
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
+                layer.open({
+                    type: 2,
+                    title: '修改商品信息',
+                    shadeClose: true,
+                    shade: false,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['893px', '600px'],
+                    content: '/user/myshop/'+shopid+"/goods/updategood/"+data.id
+
                 });
             }
         });

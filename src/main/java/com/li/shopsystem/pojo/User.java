@@ -1,6 +1,9 @@
 package com.li.shopsystem.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -14,7 +17,13 @@ public class User  {
     private String username;
     private String password;
     private String email;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date gmt_create;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date gmt_modified;
 
     public User() {
