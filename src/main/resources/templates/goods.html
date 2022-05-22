@@ -131,7 +131,25 @@
             , id: 'table'
         });
 
+        $("#searchBnt").click(function () {
+            const value = $("#search").val();
+            table.reload('table',{
+                where:{
+                    value : value
+                }
+            })
+        });
 
+        $("#search").bind("keypress",function (event) {
+            if (event.keyCode == "13") {
+                const value = $("#search").val();
+                table.reload('table',{
+                    where:{
+                        value : value
+                    }
+                })
+            }
+        })
 
         //监听行工具事件
         table.on('tool(goods)', function (obj) {

@@ -18,10 +18,7 @@ import reactor.core.publisher.Mono;
 import javax.security.auth.Subject;
 import javax.servlet.http.HttpSession;
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -64,8 +61,17 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/myshop/{id}/goods/allgoods")
-    public GoodsMessage allGoods(@PathVariable("id") Long id, int page, int limit){
-        return goodService.selectAllGoods(id,page,limit);
+    public GoodsMessage allGoods(@PathVariable("id") Long id, int page, int limit,String value) {
+        if (Objects.isNull(value)) {
+            return goodService.selectAllGoods(id, page, limit);
+        } else {
+            System.out.println(value.hashCode());
+            if(value.hashCode()==0) {
+                return goodService.selectAllGoods(id, page, limit);
+            }else{
+            return goodService.selectGoodsByGidOrName(value, id);
+            }
+        }
     }
 
     @RequestMapping("/myshop/{id}/goods/updategood/{gid}")

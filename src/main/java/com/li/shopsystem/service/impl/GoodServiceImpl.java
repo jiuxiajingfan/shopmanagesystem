@@ -42,6 +42,23 @@ public class GoodServiceImpl implements GoodService {
         return msg;
     }
 
+    public GoodsMessage selectGoodsByGidOrName(String gid,Long id){
+        GoodsMessage msg = new GoodsMessage();
+        List<Good> goods = this.selectGoodByID(gid, id);
+        if(Objects.isNull(goods)){
+            msg.setCode(-1);
+            msg.setCount(0);
+            msg.setMsg("没有数据啦！");
+            msg.setData(null);
+        }else{
+            msg.setCode(0);
+            msg.setCount(1);
+            msg.setMsg("查询成功");
+            msg.setData(goods);
+        }
+        return msg;
+    }
+
     public int updataGoodPage(Long id, Long gid, Model model){
         Good good = this.selectGoodByGid(id, gid);
 
@@ -95,7 +112,7 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public Good selectGoodByID(String gid, Long sid) {
+    public List<Good> selectGoodByID(String gid, Long sid) {
         return goodMapper.selectGoodByID(gid,sid);
     }
 

@@ -26,7 +26,7 @@
 
     <select id="selectGoodByID" resultType="Good" useCache="true">
         select * from shopsystem.tb_goods
-        where gid=#{gid} and suid=#{sid};
+        where suid=#{sid} and (gid=#{gid} or name=#{gid}) ;
     </select>
 
     <select id="listSelectGoodByName" resultType="Good" useCache="true">

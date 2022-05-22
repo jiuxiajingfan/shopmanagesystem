@@ -37,7 +37,7 @@ public interface GoodService {
      * @param sid 店铺ID
      * @return Good 商品对象
      */
-    Good selectGoodByID(String gid,Long sid);
+    List<Good> selectGoodByID(String gid,Long sid);
 
     /**
      * 根据商品名和店铺ID进行模糊查询,返回商品集合
