@@ -73,7 +73,7 @@ public class GoodServiceImpl implements GoodService {
 
     public int toUpdateGood(Long id, Long sid, String gid, String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number){
         Good good = new Good();
-        good.setId(id);
+        good.setId(sid);
         good.setGid(gid);
         good.setIn_price(in_price);
         good.setOut_price(out_price);
@@ -95,6 +95,34 @@ public class GoodServiceImpl implements GoodService {
         }
         int result = this.updateGood(good);
         return result;
+    }
+
+    public int toAdd(Long sid, String gid,String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number) {
+        Good good = new Good();
+        good.setNumber(number);
+        good.setGid(gid);
+        good.setSuid(sid);
+        good.setIn_price(in_price);
+        good.setOut_price(out_price);
+        good.setProfit(out_price-in_price);
+        good.setNumber(number);
+        good.setName(goodName);
+        good.setGmt_create(new Date(System.currentTimeMillis()));
+        Date date = null;
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date = formatter.parse(gmt_make);
+            good.setGmt_make(date);
+            date = formatter.parse(gmt_overdue);
+            good.setGmt_overdue(date);
+            System.out.println(good);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        int result = this.insertGood(good);
+        return result;
+
     }
     @Override
     public int insertGood(Good good) {

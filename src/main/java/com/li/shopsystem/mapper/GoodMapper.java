@@ -4,6 +4,7 @@ import com.li.shopsystem.pojo.Good;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface GoodMapper {
     /**
      * 修改商品，并返回执行结果
      * @param good 商品类
-     * @return int 执行结果
+     * @return int 执行结果`    123
      */
     int updateGood(Good good);
 

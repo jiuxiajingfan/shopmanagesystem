@@ -151,6 +151,22 @@
             }
         })
 
+        $("#add").click(function (){
+            layer.open({
+                type: 2,
+                title: '增加商品',
+                shadeClose: true,
+                shade: false,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['893px', '600px'],
+                content: '/user/myshop/' + shopid + "/goods/addgood",
+                end: function (){
+                    table.reload('table',{})
+                }
+            });
+
+        })
+
         //监听行工具事件
         table.on('tool(goods)', function (obj) {
             var data = obj.data;
@@ -185,7 +201,6 @@
                     maxmin: false, //开启最大化最小化按钮
                     area: ['893px', '600px'],
                     content: '/user/myshop/' + shopid + "/goods/updategood/" + data.id
-
                 });
             }
         });

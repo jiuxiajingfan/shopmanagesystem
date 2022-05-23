@@ -33,14 +33,6 @@ public class GoodController {
 
     @RequestMapping("/update/{id}/{sid}")
     public int update(@PathVariable("id") Long id, @PathVariable("sid") Long sid, String goodID, String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number){
-//        System.out.println(id);
-//        System.out.println(sid);
-//        System.out.println(goodName);
-//        System.out.println(in_price);
-//        System.out.println(out_price);
-//        System.out.println(gmt_make);
-//        System.out.println(gmt_overdue);
-//        System.out.println(number);
         return  goodService.toUpdateGood(id,sid,goodID,goodName,in_price,out_price,gmt_make,gmt_overdue,number);
     }
 
@@ -49,5 +41,9 @@ public class GoodController {
         return goodService.deleteGood(id);
     }
 
+    @RequestMapping("/add/{sid}")
+    public int add(@PathVariable("sid") Long sid, String gid,String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number){
+        return goodService.toAdd(sid,gid,goodName,in_price,out_price,gmt_make,gmt_overdue,number);
+    }
 
 }

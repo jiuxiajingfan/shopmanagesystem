@@ -81,5 +81,9 @@ public class UserController {
         return "updateGood";
     }
 
+    @RequestMapping("/myshop/{id}/goods/addgood")
+    public String addGood(@PathVariable("id") Long id){
+        return "addGood";
+    }
 
 }

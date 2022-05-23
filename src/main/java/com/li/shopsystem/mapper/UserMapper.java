@@ -4,8 +4,10 @@ import com.li.shopsystem.pojo.Shop;
 import com.li.shopsystem.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.beans.Transient;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ public interface UserMapper {
      * @param user 用户类
      * @return int 执行结果
      */
+
     int insertUser(User user);
 
     /**

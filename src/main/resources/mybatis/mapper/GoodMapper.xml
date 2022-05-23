@@ -10,7 +10,7 @@
         readOnly="true"/>
     <insert id="insertGood" parameterType="Good">
         insert into shopsystem.tb_goods(gid,name,suid,in_price,out_price,profit,number,gmt_create,gmt_make,gmt_overdue)
-        values(gid=#{gid},name=#{name},suid=#{suid},in_price=#{in_price},out_price=#{out_price},profit=#{profit},number=#{number},gmt_create=#{gmt_create},gmt_make=#{gmt_make},gmt_overdue=#{gmt_overdue});
+        values(#{gid},#{name},#{suid},#{in_price},#{out_price},#{profit},#{number},#{gmt_create},#{gmt_make},#{gmt_overdue});
     </insert>
 
     <update id="updateGood" parameterType="Good">
