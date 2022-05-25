@@ -52,8 +52,8 @@
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">商品管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a th:href="@{${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}+'/goods'}">商品列表</a></dd>
-                        <dd><a href="javascript:;">临期商品</a></dd>
+                        <dd><a th:href="@{'/user/myshop/'+${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}+'/goods'}">商品列表</a></dd>
+                        <dd><a th:href="@{'/user/myshop/'+${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}+'/temporary'}">临期商品</a></dd>
                     </dl>
                 </li>
             </ul>

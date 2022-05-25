@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>我的店铺</title>
+    <title>临期商品</title>
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.min.css}">
 </head>
 <body>
@@ -66,29 +66,12 @@
         <br><br>
         <div class="layui-container">
             <div class="layui-row">
-                <div class="layui-col-md9">
-
-                    <input id="search" type="text" name="goodsname" lay-verify="required" placeholder="请输入商品名"
-                           autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-col-md3">
-                    <button id="searchBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius"
-                            data-type="reload">
-                        <i class="layui-icon layui-icon-search layui-font-12 "></i>搜索
-                    </button>
-                    <button id="add" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
-                        <i class="layui-icon layui-icon-return layui-font-12"></i>添加
-                    </button>
-                </div>
+                <h1>临期商品列表</h1>
             </div>
         </div>
         <div class="layui-row">
             <table class="layui-hide" id="goods" lay-filter="goods"
                    lay-data="{height: 'full-200', cellMinWidth: 80}"></table>
-            <script type="text/html" id="barDemo">
-                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-            </script>
         </div>
 
     </div>
@@ -98,11 +81,9 @@
 <script th:src="@{/js/notify.js}"></script>
 <script th:src="@{/js/jquery.js}"></script>
 <script>
-    const shopid = [[ ${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}]];
-    $('#a1').attr('herf','/'+shopid+'/temporary');
     var notify = layui.notify;
     layui.use('table', function () {
-
+        const shopid = [[ ${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}]];
         const table = layui.table;
         console.log(shopid);
         var tabler = table.render({
@@ -140,72 +121,6 @@
                 }
             })
         });
-
-        $("#search").bind("keypress", function (event) {
-            if (event.keyCode == "13") {
-                const value = $("#search").val();
-                table.reload('table', {
-                    where: {
-                        value: value
-                    }
-                })
-            }
-        })
-
-        $("#add").click(function () {
-            layer.open({
-                type: 2,
-                title: '增加商品',
-                shadeClose: true,
-                shade: false,
-                maxmin: false, //开启最大化最小化按钮
-                area: ['893px', '600px'],
-                content: '/user/myshop/' + shopid + "/goods/addgood",
-                end: function () {
-                    table.reload('table', {})
-                }
-            });
-
-        })
-
-        //监听行工具事件
-        table.on('tool(goods)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'del') {
-                layer.confirm('真的删除该商品吗', function (index) {
-                    $.ajax({
-                        type: "POST",
-                        url: '/good/delete/' + data.id,
-                        success: function (data) {
-                            if (data === 1) {
-                                obj.del();
-                                layer.close(index);
-                                layui.use(['notify'], function () {
-                                    top.notify.success("删除成功", 'topCenter', 2000, true)
-                                });
-                            } else {
-                                layer.close(index);
-                                layui.use(['notify'], function () {
-                                    top.notify.error("删除失败，系统可能出现问题，请联系管理员", 'topCenter', 2000, true)
-                                });
-                            }
-                        }
-                    })
-                });
-            } else if (obj.event === 'edit') {
-                layer.open({
-                    type: 2,
-                    title: '修改商品信息',
-                    shadeClose: true,
-                    shade: false,
-                    maxmin: false, //开启最大化最小化按钮
-                    area: ['893px', '600px'],
-                    content: '/user/myshop/' + shopid + "/goods/updategood/" + data.id
-                });
-            }
-        });
-    });
-
 
     //JS
     layui.use(['element', 'layer', 'util'], function () {

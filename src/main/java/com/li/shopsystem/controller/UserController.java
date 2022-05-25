@@ -86,4 +86,10 @@ public class UserController {
         return "addGood";
     }
 
+    @RequestMapping("/myshop/{id}/temporary")
+    public String temporaryGood(@PathVariable("id") Long id){
+        return "temporaryFood";
+    }
+
+
 }
