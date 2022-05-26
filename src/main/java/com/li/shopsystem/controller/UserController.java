@@ -91,5 +91,9 @@ public class UserController {
         return "temporaryFood";
     }
 
+    @RequestMapping("myshop/{id}/totemporary")
+    public GoodsMessage add(@PathVariable("id") Long sid,int day){
+        return goodService.toTemporary(sid,day);
+    }
 
 }

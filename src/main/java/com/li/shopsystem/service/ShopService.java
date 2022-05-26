@@ -28,4 +28,5 @@ public interface ShopService {
      * @return int 执行结果
      */
     int deleteShop(Long id);
+
 }

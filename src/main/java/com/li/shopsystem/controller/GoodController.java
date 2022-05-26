@@ -46,4 +46,5 @@ public class GoodController {
         return goodService.toAdd(sid,gid,goodName,in_price,out_price,gmt_make,gmt_overdue,number);
     }
 
+
 }

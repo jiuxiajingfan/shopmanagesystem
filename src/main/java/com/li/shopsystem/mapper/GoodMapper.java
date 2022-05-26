@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,4 +77,12 @@ public interface GoodMapper {
      * @return
      */
     Good selectGoodByGid(Long id,Long gid);
+
+    /**
+     * 查询店铺即将过期商品
+     * @param id 店铺id
+     * @param day   天数
+     * @return
+     */
+    List<Good> seletctTemporary(Long id,int day);
 }

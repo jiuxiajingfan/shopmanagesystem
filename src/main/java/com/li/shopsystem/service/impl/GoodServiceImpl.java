@@ -124,6 +124,21 @@ public class GoodServiceImpl implements GoodService {
         return result;
 
     }
+
+    public GoodsMessage toTemporary(Long id,int day){
+        GoodsMessage goodsMessage = new GoodsMessage();
+        List<Good> goods = goodMapper.seletctTemporary(id, day);
+        if(Objects.isNull(goods)){
+            goodsMessage.setMsg("暂是没有将要过期的商品");
+        }else {
+            goodsMessage.setMsg("0");
+            goodsMessage.setData(goods);
+            goodsMessage.setCount(goods.size());
+            goodsMessage.setCount(0);
+        }
+        return  goodsMessage;
+
+    }
     @Override
     public int insertGood(Good good) {
         return goodMapper.insertGood(good);
@@ -163,6 +178,11 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public Good selectGoodByGid(Long id, Long gid) {
         return goodMapper.selectGoodByGid(id,gid);
+    }
+
+    @Override
+    public List<Good> seletctTemporary(Long id, int day) {
+        return goodMapper.seletctTemporary(id,day);
     }
 
 

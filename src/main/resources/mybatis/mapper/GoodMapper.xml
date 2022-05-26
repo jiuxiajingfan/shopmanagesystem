@@ -50,4 +50,9 @@
         select * from shopsystem.tb_goods
         where id = #{gid} and suid=#{id};
     </select>
+
+    <select id="seletctTemporary" resultType="Good" useCache="true">
+        select * from shopsystem.tb_goods
+        where sid={#id} and TIMESTAMPDIFF(DAY,mgt_overdue,NOW()) > -{#date};
+    </select>
 </mapper>
