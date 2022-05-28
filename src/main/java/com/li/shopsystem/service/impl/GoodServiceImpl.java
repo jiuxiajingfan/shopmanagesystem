@@ -127,9 +127,10 @@ public class GoodServiceImpl implements GoodService {
 
     public GoodsMessage toTemporary(Long id,int day){
         GoodsMessage goodsMessage = new GoodsMessage();
-        List<Good> goods = goodMapper.seletctTemporary(id, day);
+        System.out.println(day);
+        List<Good> goods = this.seletctTemporary(id, day);
         if(Objects.isNull(goods)){
-            goodsMessage.setMsg("暂是没有将要过期的商品");
+            goodsMessage.setMsg("暂时没有将要过期的商品");
         }else {
             goodsMessage.setMsg("0");
             goodsMessage.setData(goods);

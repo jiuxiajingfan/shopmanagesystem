@@ -86,7 +86,7 @@
         console.log(shopid);
         var tabler = table.render({
             elem: '#goods'
-            , url: '/user/myshop/' + shopid + "/totemporary"
+            , url: '/user/myshop/' + shopid + "/totemporary/365"
             , method: 'post'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: ['filter', 'exports', 'print' //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
@@ -105,7 +105,6 @@
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
                 ]
             ]
-            , day: 365
             , theme: '#00b5fc'
             , limit: 20
             , page: true

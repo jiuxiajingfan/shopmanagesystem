@@ -53,6 +53,6 @@
 
     <select id="seletctTemporary" resultType="Good" useCache="true">
         select * from shopsystem.tb_goods
-        where sid={#id} and TIMESTAMPDIFF(DAY,mgt_overdue,NOW()) > -{#date};
+        where suid=#{id} and TIMESTAMPDIFF(DAY,gmt_overdue,NOW()) > - #{day};
     </select>
 </mapper>
