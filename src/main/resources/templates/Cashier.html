@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>我的店铺</title>
+    <title>在线收银</title>
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/layui/2.6.8/css/layui.min.css}">
 </head>
 <body>
@@ -42,20 +42,24 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" >
+            <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item ">
                     <a class="" href="javascript:;">店铺管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a th:href="@{'/user/tocashier/'+${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}}">在线收银</a></dd>
+                        <dd><a href="javascript:;">在线收银</a></dd>
                         <dd><a href="javascript:;">营业额统计</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item layui-nav-itemed" >
+                <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">商品管理</a>
                     <dl class="layui-nav-child">
                         <dd>
-                        <dd><a th:href="@{'/user/myshop/'+${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}+'/goods'}">商品列表</a></dd>
-                        <dd><a th:href="@{'/user/myshop/'+${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}+'/temporary'}">临期商品</a></dd>
+                        <dd>
+                            <a th:href="@{'/user/myshop/'+${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}+'/goods'}">商品列表</a>
+                        </dd>
+                        <dd>
+                            <a th:href="@{'/user/myshop/'+${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}+'/temporary'}">临期商品</a>
+                        </dd>
                     </dl>
                 </li>
             </ul>
@@ -63,12 +67,10 @@
     </div>
 
     <div class="layui-body">
-        <br><br>
         <div class="layui-container">
             <div class="layui-row">
                 <div class="layui-col-md9">
-
-                    <input id="search" type="text" name="goodsname" lay-verify="required" placeholder="请输入商品名"
+                    <input id="search" type="text" name="goodsname" lay-verify="required" placeholder="请输入商品条码"
                            autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-col-md3">
@@ -76,21 +78,11 @@
                             data-type="reload">
                         <i class="layui-icon layui-icon-search layui-font-12 "></i>搜索
                     </button>
-                    <button id="add" type="button" class="layui-btn layui-btn-primary layui-btn-radius">
-                        <i class="layui-icon layui-icon-return layui-font-12"></i>添加
-                    </button>
                 </div>
             </div>
         </div>
-        <div class="layui-row">
-            <table class="layui-hide" id="goods" lay-filter="goods"
-                   lay-data="{height: 'full-200', cellMinWidth: 80}"></table>
-            <script type="text/html" id="barDemo">
-                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-            </script>
-        </div>
 
+        <table class="layui-hide" id="test"></table>
     </div>
 </div>
 
@@ -98,113 +90,40 @@
 <script th:src="@{/js/notify.js}"></script>
 <script th:src="@{/js/jquery.js}"></script>
 <script>
-    const shopid = [[ ${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}]];
-    $('#a1').attr('herf','/'+shopid+'/temporary');
     var notify = layui.notify;
+
     layui.use('table', function () {
 
-        const table = layui.table;
-        console.log(shopid);
-        var tabler = table.render({
-            elem: '#goods'
-            , url: '/user/myshop/' + shopid + '/goods/allgoods'
-            , method: 'post'
-            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-            , defaultToolbar: ['filter', 'exports', 'print' //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            ]
-            , title: '商品数据表'
-            , cols: [
+
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            ,cols: [
                 [
-                     {field: 'id', title: 'ID', sort: true, hide: true}
+                    {field: 'id', title: 'ID', sort: true, hide: true}
                     , {field: 'name', minWidth: 150, title: '商品名'}
                     , {field: 'gid', title: '商品码'}
-                    , {field: 'in_price', minWidth: 80, title: '进货价'}
                     , {field: 'out_price', minWidth: 80, title: '售价', width: 80}
                     , {field: 'number', minWidth: 80, title: '数量'}
-                    , {field: 'gmt_make', minWidth: 150, title: '更新日期'}
-                    , {field: 'gmt_overdue', minWidth: 150, title: '过期时间'}
                     , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
-                ]
             ]
-            , theme: '#00b5fc'
-            , limit: 20
-            , page: true
+            ]
+            ,page: true
             , id: 'table'
         });
 
         $("#searchBnt").click(function () {
-            const value = $("#search").val();
-            table.reload('table', {
-                where: {
-                    value: value
-                }
+            console.log(1);
+            var data = {id:1,name:"哇哈哈",gid:"1235457",out_price:12,number:1};
+            table.render('table',{
+                data:data
             })
         });
-
-        $("#search").bind("keypress", function (event) {
-            if (event.keyCode == "13") {
-                const value = $("#search").val();
-                table.reload('table', {
-                    where: {
-                        value: value
-                    }
-                })
-            }
-        })
-
-        $("#add").click(function () {
-            layer.open({
-                type: 2,
-                title: '增加商品',
-                shadeClose: true,
-                shade: false,
-                maxmin: false, //开启最大化最小化按钮
-                area: ['893px', '600px'],
-                content: '/user/myshop/' + shopid + "/goods/addgood",
-                end: function () {
-                    table.reload('table', {})
-                }
-            });
-
-        })
-
-        //监听行工具事件
-        table.on('tool(goods)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'del') {
-                layer.confirm('真的删除该商品吗', function (index) {
-                    $.ajax({
-                        type: "POST",
-                        url: '/good/delete/' + data.id,
-                        success: function (data) {
-                            if (data === 1) {
-                                obj.del();
-                                layer.close(index);
-                                layui.use(['notify'], function () {
-                                    top.notify.success("删除成功", 'topCenter', 2000, true)
-                                });
-                            } else {
-                                layer.close(index);
-                                layui.use(['notify'], function () {
-                                    top.notify.error("删除失败，系统可能出现问题，请联系管理员", 'topCenter', 2000, true)
-                                });
-                            }
-                        }
-                    })
-                });
-            } else if (obj.event === 'edit') {
-                layer.open({
-                    type: 2,
-                    title: '修改商品信息',
-                    shadeClose: true,
-                    shade: false,
-                    maxmin: false, //开启最大化最小化按钮
-                    area: ['893px', '600px'],
-                    content: '/user/myshop/' + shopid + "/goods/updategood/" + data.id
-                });
-            }
-        });
     });
+
+
+
     //JS
     layui.use(['element', 'layer', 'util'], function () {
         var element = layui.element

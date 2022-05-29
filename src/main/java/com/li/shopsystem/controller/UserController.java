@@ -92,10 +92,12 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping("myshop/{id}/totemporary/{day}")
-    public GoodsMessage add(@PathVariable("id") Long sid,@PathVariable("day")  int day){
-        System.out.println(day);
-        return goodService.toTemporary(sid,day);
+    @RequestMapping("/myshop/{id}/totemporary")
+    public GoodsMessage add(@PathVariable("id") Long sid){
+        return goodService.toTemporary(sid,30);
     }
-
+    @RequestMapping("/tocashier/{sid}")
+    public String Cashier(@PathVariable("sid") Long sid){
+        return "Cashier";
+    }
 }
