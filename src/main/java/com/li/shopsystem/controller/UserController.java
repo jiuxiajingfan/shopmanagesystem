@@ -100,4 +100,6 @@ public class UserController {
     public String Cashier(@PathVariable("sid") Long sid){
         return "Cashier";
     }
+
+
 }

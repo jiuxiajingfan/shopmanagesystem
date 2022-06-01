@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <table class="layui-hide" id="test"></table>
+        <table class="layui-hide" id="table1"></table>
     </div>
 </div>
 
@@ -90,38 +90,45 @@
 <script th:src="@{/js/notify.js}"></script>
 <script th:src="@{/js/jquery.js}"></script>
 <script>
+    var shopid = [[ ${#strings.listSplit(#httpServletRequest.requestURI,'/')[2]}]];
     var notify = layui.notify;
-
+    var dataC =   [];
+    var table = layui.table;
     layui.use('table', function () {
-
-
-        var table = layui.table;
-
         table.render({
-            elem: '#test'
+            elem: '#table1'
             ,cols: [
                 [
-                    {field: 'id', title: 'ID', sort: true, hide: true}
-                    , {field: 'name', minWidth: 150, title: '商品名'}
+                     {field: 'name', minWidth: 150, title: '商品名'}
                     , {field: 'gid', title: '商品码'}
                     , {field: 'out_price', minWidth: 80, title: '售价', width: 80}
                     , {field: 'number', minWidth: 80, title: '数量'}
-                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
             ]
-            ]
-            ,page: true
-            , id: 'table'
-        });
-
-        $("#searchBnt").click(function () {
-            console.log(1);
-            var data = {id:1,name:"哇哈哈",gid:"1235457",out_price:12,number:1};
-            table.render('table',{
-                data:data
-            })
+            ],
+            data: dataC,
         });
     });
 
+    $('#searchBnt').click(function () {
+       $.ajax({
+           url: '/good/select/'+$('#search').val()+"/"+shopid,
+           method: 'POST',
+           success: function (data){
+               if(data===null)
+               {
+
+               }
+               else {
+                   dataC.push(data[0]);
+                   console.log(data);
+                   console.log(dataC);
+                   table.reload('table1', {
+                       data: dataC
+                   });
+               }
+           }
+       });
+    });
 
 
     //JS

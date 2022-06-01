@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Li
@@ -27,7 +28,8 @@ public class GoodController {
     @RequestMapping("/select/{name}/{sid}")
     public List<Good> listSelectGoodByName(@PathVariable("name")String name,@PathVariable("sid") Long sid)
     {
-        List<Good> goods = goodService.listSelectGoodByName(name, sid);
+        List<Good> goods = goodService.selectGoodByID(name, sid);
+
         return goods;
     }
 
