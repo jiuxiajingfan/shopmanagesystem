@@ -74,10 +74,16 @@
                            autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-col-md3">
+                  <div>
                     <button id="searchBnt" type="button" class="layui-btn layui-btn-primary layui-btn-radius"
                             data-type="reload">
                         <i class="layui-icon layui-icon-search layui-font-12 "></i>搜索
                     </button>
+                    <button id="cashier" type="button" class="layui-btn layui-btn-primary layui-btn-radius"
+                            data-type="reload">
+                        <i class="layui-icon layui-icon-search layui-font-12 "></i>直接收款
+                    </button>
+                  </div>
                 </div>
             </div>
         </div>
@@ -94,18 +100,29 @@
     var notify = layui.notify;
     var dataC =   [];
     var table = layui.table;
+    var goods = new Map();
+    var goodsNumber = new Map();
+    var goodss = new Set();
     layui.use('table', function () {
         table.render({
             elem: '#table1'
+            ,totalRow: true //开启合计行
             ,cols: [
                 [
                      {field: 'name', minWidth: 150, title: '商品名'}
                     , {field: 'gid', title: '商品码'}
                     , {field: 'out_price', minWidth: 80, title: '售价', width: 80}
-                    , {field: 'number', minWidth: 80, title: '数量'}
+                    , {field: 'Number', minWidth: 80, title: '数量'}
+                    ,{field: 'sum',minWidth: 80,title: '共计',totalRow: true}
             ]
             ],
-            data: dataC,
+            done: function(res, curr, count){
+            for (let i = 0 ; i <res.data.length; i++){
+                    res.data[i].Number = goodsNumber.get( res.data[i].gid);
+                    res.data[i].sum =  res.data[i].Number *  res.data[i].out_price;
+            }
+            },
+            data: dataC
         });
     });
 
@@ -114,16 +131,46 @@
            url: '/good/select/'+$('#search').val()+"/"+shopid,
            method: 'POST',
            success: function (data){
-               if(data===null)
+               if(data.length==0)
                {
-
+                   layer.open({
+                       content: '暂时未找到该商品，是否立即添加？',
+                       btn: ['是', '否'],
+                       yes:function(index){
+                       layer.open({
+                           type: 2,
+                           title: '增加商品',
+                           shadeClose: true,
+                           shade: false,
+                           maxmin: false, //开启最大化最小化按钮
+                           area: ['893px', '600px'],
+                           content: '/user/myshop/' + shopid + "/goods/addgood",
+                           end:  function (){ $('#searchBnt').trigger("click")}
+                       });
+                           layer.close(index)
+                   }, function(index) {
+                           layer.close(index)
+                       }
+                   });
                }
                else {
-                   dataC.push(data[0]);
-                   console.log(data);
-                   console.log(dataC);
+                   goodss.add(data[0]);
+                   for (let item of goodss) {
+                       dataC.push(item);
+                   }
+                   if(goods.get(data[0].gid)===undefined) {
+                       goods.set(data[0].gid, dataC.length);
+                       goodsNumber.set(data[0].gid, 1);
+                   }else
+                   {
+                       goodsNumber.set(data[0].gid,goodsNumber.get(data[0].gid)+1);
+                   }
+                   let newArr = [...new Set(dataC.map(v => JSON.stringify(v)))].map(s => JSON.parse(s));
                    table.reload('table1', {
-                       data: dataC
+                       data: newArr
+                   });
+                   table.reload('table1', {
+                       data: newArr
                    });
                }
            }
