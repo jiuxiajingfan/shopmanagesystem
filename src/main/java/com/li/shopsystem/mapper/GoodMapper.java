@@ -85,4 +85,6 @@ public interface GoodMapper {
      * @return
      */
     List<Good> seletctTemporary(Long id,int day);
+
+    int addrecord(Long sid,double money,)
 }

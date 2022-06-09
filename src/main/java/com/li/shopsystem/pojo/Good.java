@@ -14,9 +14,9 @@ public class Good {
     private String name;
     private String gid;
     private Long suid;
-    private int in_price;
-    private int out_price;
-    private int profit;
+    private double in_price;
+    private double out_price;
+    private double profit;
     private Long number;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -34,7 +34,7 @@ public class Good {
     public Good() {
     }
 
-    public Good(Long id, String name, String gid, Long suid, int in_price, int out_price, int profit, Long number, Date gmt_create, Date gmt_make, Date gmt_overdue) {
+    public Good(Long id, String name, String gid, Long suid, double in_price, double out_price, double profit, Long number, Date gmt_create, Date gmt_make, Date gmt_overdue) {
         this.id = id;
         this.name = name;
         this.gid = gid;
@@ -80,27 +80,27 @@ public class Good {
         this.suid = suid;
     }
 
-    public int getIn_price() {
+    public double getIn_price() {
         return in_price;
     }
 
-    public void setIn_price(int in_price) {
+    public void setIn_price(double in_price) {
         this.in_price = in_price;
     }
 
-    public int getOut_price() {
+    public double getOut_price() {
         return out_price;
     }
 
-    public void setOut_price(int out_price) {
+    public void setOut_price(double out_price) {
         this.out_price = out_price;
     }
 
-    public int getProfit() {
+    public double getProfit() {
         return profit;
     }
 
-    public void setProfit(int profit) {
+    public void setProfit(double profit) {
         this.profit = profit;
     }
 

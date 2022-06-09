@@ -71,7 +71,7 @@ public class GoodServiceImpl implements GoodService {
         return 1;
     }
 
-    public int toUpdateGood(Long id, Long sid, String gid, String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number){
+    public int toUpdateGood(Long id, Long sid, String gid, String goodName, double in_price, double out_price, String gmt_make, String gmt_overdue, Long number){
         Good good = new Good();
         good.setId(sid);
         good.setGid(gid);
@@ -97,7 +97,7 @@ public class GoodServiceImpl implements GoodService {
         return result;
     }
 
-    public int toAdd(Long sid, String gid,String goodName, int in_price, int out_price, String gmt_make, String gmt_overdue, Long number) {
+    public int toAdd(Long sid, String gid,String goodName, double in_price, double out_price, String gmt_make, String gmt_overdue, Long number) {
         Good good = new Good();
         good.setNumber(number);
         good.setGid(gid);

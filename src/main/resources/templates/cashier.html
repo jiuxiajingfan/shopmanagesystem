@@ -81,7 +81,7 @@
                     </button>
                     <button id="cashier" type="button" class="layui-btn layui-btn-primary layui-btn-radius"
                             data-type="reload">
-                        <i class="layui-icon layui-icon-search layui-font-12 "></i>直接收款
+                        <i class="layui-icon layui-icon-search layui-font-12 "></i>结算
                     </button>
                   </div>
                 </div>
@@ -103,6 +103,8 @@
     var goods = new Map();
     var goodsNumber = new Map();
     var goodss = new Set();
+    var SUM = 0;
+    var newArr = [];
     layui.use('table', function () {
         table.render({
             elem: '#table1'
@@ -117,9 +119,11 @@
             ]
             ],
             done: function(res, curr, count){
+                SUM = 0;
             for (let i = 0 ; i <res.data.length; i++){
                     res.data[i].Number = goodsNumber.get( res.data[i].gid);
                     res.data[i].sum =  res.data[i].Number *  res.data[i].out_price;
+                    SUM += res.data[i].sum;
             }
             },
             data: dataC
@@ -165,7 +169,7 @@
                    {
                        goodsNumber.set(data[0].gid,goodsNumber.get(data[0].gid)+1);
                    }
-                   let newArr = [...new Set(dataC.map(v => JSON.stringify(v)))].map(s => JSON.parse(s));
+                   newArr = [...new Set(dataC.map(v => JSON.stringify(v)))].map(s => JSON.parse(s));
                    table.reload('table1', {
                        data: newArr
                    });
@@ -177,6 +181,33 @@
        });
     });
 
+    $('#cashier').click(function () {
+        layer.prompt(
+            {
+                title: '共'+SUM+'元，输入收款额，并确认', formType: 3}, function(text, index) {
+                layer.close(index);
+                layer.alert('找零' + (parseFloat(text) - SUM) + '元');
+                $.ajax({
+                    type: "POST",
+                    url: '/good/record/' + shopid,
+                    data: {'data':JSON.stringify(newArr)},
+                    success: function (data) {
+                        if (data === 1) {
+                            obj.del();
+                            layer.close(index);
+                            layui.use(['notify'], function () {
+                                top.notify.success("删除成功", 'topCenter', 2000, true)
+                            });
+                        } else {
+                            layer.close(index);
+                            layui.use(['notify'], function () {
+                                top.notify.error("删除失败，系统可能出现问题，请联系管理员", 'topCenter', 2000, true)
+                            });
+                        }
+                    }
+                })
+            });
+    });
 
     //JS
     layui.use(['element', 'layer', 'util'], function () {
