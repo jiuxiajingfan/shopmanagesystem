@@ -1,5 +1,7 @@
 package com.li.shopsystem.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.JSON;
 import com.li.shopsystem.mapper.GoodMapper;
 import com.li.shopsystem.pojo.Good;
@@ -21,6 +23,8 @@ import java.util.Objects;
  */
 @Service
 public class GoodServiceImpl implements GoodService {
+
+
 
     @Autowired
     private GoodMapper goodMapper;
@@ -140,6 +144,26 @@ public class GoodServiceImpl implements GoodService {
         return  goodsMessage;
 
     }
+
+    public int GoodSale(Long sid,String data){
+        JSONArray jsonArray = com.alibaba.fastjson.JSON.parseArray(data);
+        //订单号
+        String no = Long.toString(System.currentTimeMillis())+sid;
+        //总价
+        double sum = 0;
+        try {
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                sum += jsonObject.getDouble("sum");
+                this.addgoodrecord(jsonObject.getLong("gid"), jsonObject.getString("name"), jsonObject.getIntValue("Number"), jsonObject.getDouble("out_price"), jsonObject.getDouble("sum"), no);
+            }
+            this.addrecord(sid, sum, no);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
     @Override
     public int insertGood(Good good) {
         return goodMapper.insertGood(good);
@@ -184,6 +208,16 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public List<Good> seletctTemporary(Long id, int day) {
         return goodMapper.seletctTemporary(id,day);
+    }
+
+    @Override
+    public int addrecord(Long sid, double money, String no) {
+        return goodMapper.addrecord(sid,money,no);
+    }
+
+    @Override
+    public int addgoodrecord(Long gid, String name, int number, double price, double sum, String no) {
+        return goodMapper.addgoodrecord(gid,name,number,price,sum,no);
     }
 
 

@@ -80,4 +80,26 @@ public interface GoodService {
      * @return
      */
     List<Good> seletctTemporary(Long id,int day);
+
+    /**
+     * 添加商品交易记录
+     * @param sid 店铺ID
+     * @param money 交易金额
+     * @param no 订单号
+     * @return 订单号ID
+     */
+    int addrecord(Long sid,double money,String no);
+
+
+    /**
+     * 添加商品交易信息
+     * @param gid 商品ID
+     * @param name  商品名
+     * @param number   商品交易数量
+     * @param price     商品单价
+     * @param sum   商品总价
+     * @param no    订单号
+     * @return
+     */
+    int addgoodrecord(Long gid,String name,int number,double price,double sum,String no);
 }

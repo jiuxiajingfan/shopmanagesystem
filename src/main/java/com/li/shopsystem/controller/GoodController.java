@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.li.shopsystem.pojo.Good;
 import com.li.shopsystem.service.impl.GoodServiceImpl;
+import io.netty.handler.codec.json.JsonObjectDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -54,14 +55,7 @@ public class GoodController {
 
     @RequestMapping("record/{sid}")
     public int record(@PathVariable("sid")Long sid, String data){
-        JSONArray jsonArray = JSON.parseArray(data);
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-
-        }
-       
-        return 1;
+        return goodService.GoodSale(sid,data);
     }
 
 

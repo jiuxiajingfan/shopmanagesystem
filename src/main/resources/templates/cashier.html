@@ -43,14 +43,14 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree">
-                <li class="layui-nav-item ">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">店铺管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">在线收银</a></dd>
                         <dd><a href="javascript:;">营业额统计</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">商品管理</a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -193,20 +193,31 @@
                     data: {'data':JSON.stringify(newArr)},
                     success: function (data) {
                         if (data === 1) {
-                            obj.del();
-                            layer.close(index);
                             layui.use(['notify'], function () {
-                                top.notify.success("删除成功", 'topCenter', 2000, true)
+                                top.notify.success("结算成功", 'topCenter', 2000, true)
+                            });
+                            newArr=[];
+                            dataC=[];
+                            goods.clear();
+                            goodsNumber.clear();
+                            goodss.clear();
+                            table.reload('table1', {
+                                data: newArr
                             });
                         } else {
-                            layer.close(index);
                             layui.use(['notify'], function () {
-                                top.notify.error("删除失败，系统可能出现问题，请联系管理员", 'topCenter', 2000, true)
+                                top.notify.error("结算失败，系统可能出现问题，请联系管理员", 'topCenter', 2000, true)
                             });
                         }
                     }
                 })
             });
+    });
+
+    $("#search").bind("keypress", function (event) {
+        if (event.keyCode == "13") {
+            $('#searchBnt').trigger("click")
+        }
     });
 
     //JS

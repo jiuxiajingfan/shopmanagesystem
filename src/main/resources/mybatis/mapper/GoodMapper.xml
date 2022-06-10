@@ -55,4 +55,14 @@
         select * from shopsystem.tb_goods
         where suid=#{id} and TIMESTAMPDIFF(DAY,gmt_overdue,NOW()) > - #{day};
     </select>
+
+    <insert id="addrecord">
+        insert into shopsystem.tb_record(sid,money,time,no)
+        values (#{sid},#{money},now(),#{no});
+    </insert>
+
+    <insert id="addgoodrecord">
+        insert into shopsystem.tb_goodrecord(gid, name, number, price, sum, no)
+        values (#{gid}, #{name}, #{number}, #{price}, #{sum}, #{no});
+    </insert>
 </mapper>
