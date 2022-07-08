@@ -96,10 +96,15 @@ public class UserController {
     public GoodsMessage add(@PathVariable("id") Long sid){
         return goodService.toTemporary(sid,30);
     }
+
     @RequestMapping("/tocashier/{sid}")
     public String Cashier(@PathVariable("sid") Long sid){
         return "Cashier";
     }
 
+    @RequestMapping("/myshop/{id}/record")
+    public String record(@PathVariable("id") Long id){
+        return  "record";
+    }
 
 }

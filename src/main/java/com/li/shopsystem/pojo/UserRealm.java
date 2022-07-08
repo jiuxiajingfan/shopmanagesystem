@@ -45,6 +45,7 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken userToken = (UsernamePasswordToken) authenticationToken;
 
         User user = userService.userLogin(userToken.getUsername());
+        System.out.println(user);
         if(Objects.isNull(user)){
             return null;
         }

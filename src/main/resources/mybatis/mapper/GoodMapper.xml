@@ -65,4 +65,9 @@
         insert into shopsystem.tb_goodrecord(gid, name, number, price, sum, no)
         values (#{gid}, #{name}, #{number}, #{price}, #{sum}, #{no});
     </insert>
+
+    <select id="findRecord" resultType="record" useCache="true">
+        select * from shopsystem.tb_record
+        where sid=#{sid} and time BETWEEN #{dateFrom} AND #{dateTo};
+    </select>
 </mapper>

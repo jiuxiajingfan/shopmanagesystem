@@ -13,14 +13,14 @@ CREATE TABLE tb_shop(
 `id` BIGINT auto_increment PRIMARY key comment '店铺id',
 `name` VARCHAR(30) NOT NULL comment '店铺名',
 `introduce` text comment '店铺简介'
-)
+);
 
 CREATE TABLE tb_role(
 `id` BIGINT NOT NULL auto_increment PRIMARY key comment 'id',
 `uid` BIGINT NOT NULL comment '用户uid',
 `suid` BIGINT NOT NULL comment '店铺uid',
 `role` CHAR(1)  DEFAULT '0' comment '用户角色'
-)
+);
 
 
 CREATE TABLE tb_goods(
@@ -35,7 +35,7 @@ CREATE TABLE tb_goods(
 `gmt_create` datetime NOT NULL comment '创建时间',
 `gmt_make` datetime NOT NULL comment '生产时间',
 `gmt_overdue` datetime NOT NULL comment '过期时间'
-)
+);
 
 
 CREATE TABLE tb_logs(

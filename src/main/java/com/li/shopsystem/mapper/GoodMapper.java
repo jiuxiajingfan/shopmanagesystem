@@ -1,6 +1,7 @@
 package com.li.shopsystem.mapper;
 
 import com.li.shopsystem.pojo.Good;
+import com.li.shopsystem.pojo.record;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -105,5 +106,14 @@ public interface GoodMapper {
      * @param no    订单号
      * @return
      */
-    int addgoodrecord(Long gid,String name,int number,double price,double sum,String no);
+    int addgoodrecord(String gid,String name,int number,double price,double sum,String no);
+
+    /**
+     * 查询时间区间内的店铺交易信息
+     * @param sid 店铺id
+     * @param dateFrom 起始时间
+     * @param dateTo  结束时间
+     * @return  交易类
+     */
+    List<record> findRecord(Long sid, Date dateFrom, Date dateTo);
 }

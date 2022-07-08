@@ -6,6 +6,7 @@ import com.alibaba.fastjson2.JSON;
 import com.li.shopsystem.mapper.GoodMapper;
 import com.li.shopsystem.pojo.Good;
 import com.li.shopsystem.pojo.GoodsMessage;
+import com.li.shopsystem.pojo.record;
 import com.li.shopsystem.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -155,7 +156,7 @@ public class GoodServiceImpl implements GoodService {
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 sum += jsonObject.getDouble("sum");
-                this.addgoodrecord(jsonObject.getLong("gid"), jsonObject.getString("name"), jsonObject.getIntValue("Number"), jsonObject.getDouble("out_price"), jsonObject.getDouble("sum"), no);
+                this.addgoodrecord(jsonObject.getString("gid"), jsonObject.getString("name"), jsonObject.getIntValue("Number"), jsonObject.getDouble("out_price"), jsonObject.getDouble("sum"), no);
             }
             this.addrecord(sid, sum, no);
         } catch (Exception e) {
@@ -216,8 +217,13 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public int addgoodrecord(Long gid, String name, int number, double price, double sum, String no) {
+    public int addgoodrecord(String gid, String name, int number, double price, double sum, String no) {
         return goodMapper.addgoodrecord(gid,name,number,price,sum,no);
+    }
+
+    @Override
+    public List<record> findRecord(Long sid, Date dateFrom, Date dateTo) {
+        return goodMapper.findRecord(sid,dateFrom,dateTo);
     }
 
 
